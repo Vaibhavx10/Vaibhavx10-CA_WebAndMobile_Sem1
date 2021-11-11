@@ -1,10 +1,14 @@
 
 
 
+var movie;
+
+
 function init(){
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     getMovieDetailsById(params['id'])
+
     
 }
 
@@ -169,21 +173,21 @@ function getRateByQuality(id){
             card.remove()
         }
         else{
-            document.getElementById("SDrate").innerHTML =   "€"+MovieRates[sdIndex].Rate+" /day"    
+            document.getElementById("SDrate").innerHTML =   "&euro; "+MovieRates[sdIndex].Rate+" /day"    
         }
         if(hdIndex<0){
             let card = document.getElementById('HDcard')
             card.remove()        
         }
         else{
-            document.getElementById("HDrate").innerHTML =  "€"+ MovieRates[hdIndex].Rate +" /day"    
+            document.getElementById("HDrate").innerHTML =  "&euro; "+ MovieRates[hdIndex].Rate +" /day"    
         }
         if(brIndex<0){
             let card = document.getElementById('BRcard')
             card.remove()        
         }
         else{
-            document.getElementById("BRrate").innerHTML =   "€"+MovieRates[brIndex].Rate  +" /day"   
+            document.getElementById("BRrate").innerHTML =   "&euro; "+MovieRates[brIndex].Rate  +" /day"   
         }
 
 
@@ -206,7 +210,128 @@ function getRateByQuality(id){
 
 }
 
+function SelectMovie(Value){
+    document.getElementById('MovieSelected').value=movie.MovieName
+    document.getElementById('QualitySelected').value=Value
+
+}
+
+
+
+    const InputParams = document.querySelectorAll('input');
+    const form = document.querySelector('form');
+
+    // InputParams.forEach(item=>{
+    //     item.addEventListener('input', () => {
+    //         if(item.value === '') {
+    //             item.setCustomValidity('This field is required!');
+    //         }else{
+    //             if(item.id=="EmailId")
+    //             {
+    //                 item.setCustomValidity('Enter valid Email.')
+    //             }
+    //             if(item.id=="Phone")
+    //             {
+    //                 item.setCustomValidity('Enter valid Phone Number.')
+    //             }
+    //         }
+    //     });
+    // })
+
+    // InputParams.forEach(item=>{
+    //     item.addEventListener('invalid', () => {
+    //         if(item.value === '') {
+    //             item.setCustomValidity('This field is required!');
+    //         }else{
+    //             if(item.id=="EmailId")
+    //             {
+    //                 item.setCustomValidity('Enter valid Email.')
+    //             }
+    //             if(item.id=="Phone")
+    //             {
+    //                 item.setCustomValidity('Enter valid Phone Number.')
+    //             }
+    //         }
+            
+    //     });
+    // })
+    
+
+function Validate(form){
+    var inputs = form.querySelectorAll('input');
+    let isvalid=true;
+	let Regex = {
+		"Email": /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+		"Phone": /^[0-9]{8,12}$/
+	}
+    
+
+    inputs.forEach(item=>{
+        item.setCustomValidity('');
+        if(item.value === '') {
+            item.setCustomValidity('This field is required!');
+            isvalid=false;
+        }
+        else{
+            let test = Regex["Email"].test(item.value)
+
+            if(item.id=="EmailId" && !Regex["Email"].test(item.value))
+            {
+                item.setCustomValidity('Enter valid Email.')
+                isvalid=false;
+            }
+
+            if(item.id=="Phone" && !Regex["Phone"].test(item.value))
+            {
+                item.setCustomValidity('Enter valid Phone Number.')
+                isvalid=false;
+            }
+        }
+    })
+
+    form.reportValidity();
+    return isvalid;
+}
+
 
 function SubmitForm(){
-    alert("Form sumitted!")
+
+    if(Validate(form)){
+
+		
+
+
+
+
+
+
+        dismissModal()
+    }
+	else{
+	form.reportValidity();
+	}
+
+
+}
+
+function dismissModal(){
+    var modal= document.getElementById('Reserve-modal')
+
+    modal.classList.remove('show');
+    modal.style.display= "none";
+    modal.setAttribute("aria-hidden",true);
+    modal.removeAttribute("aria-modal");
+    modal.removeAttribute("role");
+
+    var body = document.body;
+    body.classList.remove('modal-open');
+    body.removeAttribute("style");
+
+    var modalbackdrop = document.getElementsByClassName('modal-backdrop')
+
+    for(let i =0; i<modalbackdrop.length;i++){
+        modalbackdrop[i].remove()
+    }
+
+
 }
