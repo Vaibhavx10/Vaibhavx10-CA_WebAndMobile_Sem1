@@ -1,4 +1,3 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -7,9 +6,12 @@
         <title>Movie Rental</title>
 
         <!--#region bootstrap & CSS CDN-->
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/stylesheet.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+
+
         <!--#regionend bootstrap & CSS CDN-->
 
     </head>
@@ -119,7 +121,7 @@
                                 <div class="display-6 text-muted" id="SDrate">
                                         {{SDrate}}
                                 </div>
-                                <a class="btn btn-outline-secondary btn-lg my-2" data-bs-target="#Reserve-modal" data-bs-toggle="modal">Rent</a> 
+                                <a class="btn btn-outline-secondary btn-lg my-2" data-bs-target="#Reserve-modal" data-bs-toggle="modal" onclick="SelectMovie('SD')">Rent</a> 
                             </div>
                             </div>
                         </div>
@@ -130,7 +132,7 @@
                                 <div class="display-6 text-muted" id="HDrate">
                                         {{HDrate}}}
                                 </div>
-                                <a class="btn btn-outline-secondary btn-lg my-2" data-bs-target="#Reserve-modal" data-bs-toggle="modal">Rent</a> 
+                                <a class="btn btn-outline-secondary btn-lg my-2" data-bs-target="#Reserve-modal" data-bs-toggle="modal" onclick="SelectMovie('HD')">Rent</a> 
                             </div>
                             </div>
                         </div>
@@ -141,7 +143,7 @@
                                 <div class="display-6 text-muted" id="BRrate">
                                         {{BRrate}}
                                 </div>
-                                <a class="btn btn-outline-secondary btn-lg my-2" data-bs-target="#Reserve-modal" data-bs-toggle="modal">Rent</a> 
+                                <a class="btn btn-outline-secondary btn-lg my-2" data-bs-target="#Reserve-modal" data-bs-toggle="modal" onclick="SelectMovie('BR')">Rent</a> 
                             </div>
                             </div>
                         </div>
@@ -169,37 +171,37 @@
                             <h4 class="modal-title">Modal title</h4>
                             <a  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
                           </div>
-                          <form>
+                          <form name="ReseravtionForm" id="reseravtion-form">
                           <div class="modal-body">
                            
                             <div class="mb-2">
+                                <label for="MovieSelected" class="form-label">Movie Name</label>
+                                <input  class="form-control" id="MovieSelected" type="text" disabled>
+
+                                <label for="QualitySelected" class="form-label">Disc Type</label>
+                                <input  class="form-control" id="QualitySelected" type="text" disabled>
 
                                 <label for="Name" class="form-label">Name</label>
-                                <input  class="form-control" id="Name" type="text" placeholder="Enter your Name (Ex: John Wick)">
+                                <input  class="form-control" id="Name" type="text" required placeholder="Enter your Name (Ex: John Wick)">
 
                                 <label for="EmailId" class="form-label">Email address</label>
-                                <input  class="form-control" id="EmailId" type="email" placeholder="Enter your Email (Ex: john.wick@mail.com)">
+                                <input  class="form-control" id="EmailId" type="email" oninput="Validate(form)" placeholder="Enter your Email (Ex: john.wick@mail.com)">
 
                                 <label for="Phone" class="form-label">Phone No</label>
-                                <input id="Phone" type="number" minlength="9" maxlength="10" name="Phone"  placeholder="Enter your Phone No. (Ex: 0899XXXXXXX)">
+                                <input id="Phone" class="form-control" type="tel" name="Phone" oninput="Validate(form)" placeholder="Enter your Phone No. (Ex: 0899XXXXXXX)">
 
-
-                                <input type="text" id="password" name="password" minlength="8"><br><br>
 
                               </div>
 
-                         
-                            
-
-
 
                           </div>
+                          </form>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" value="Submit" class="btn btn-dark" >Save changes</button>
+                            <button id="btn-submit"   class="btn btn-dark" onclick="SubmitForm()">Save changes</button>
                           </div>
-
-                        </form>
+                      
+                       
 
 
                     </div>
@@ -214,7 +216,14 @@
 
 
         <!--#region Scripts-->
+
         <script src="../javascript/movie.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    
+
         <!--#regionend Scripts -->
     </html>
